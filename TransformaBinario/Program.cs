@@ -33,7 +33,7 @@ int retornaErro()
     }
     else
     {
-        if ((num > 255) || (num < -255))
+        if ((num > 255) || (num < 0))
         {
             Console.WriteLine("O valor extrapola o limite");
             return retornaErro();
