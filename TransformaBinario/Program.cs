@@ -1,30 +1,52 @@
-﻿int input;
+﻿int valor, resto;
 
-int[] binario =  new int[8];
+int[] binario = new int[8];
 
-int Imenu()
+string Imenu()
 {
     Console.WriteLine("Digite um valor: ");
-    return int.Parse(Console.ReadLine());  
+    return Console.ReadLine();
 }
 
-int converteBinario(int input)
+int j = 0;
+int[] converteBinario(int input)
 {
-    int a;
-
-    a = input % 2;
-    return a;
+    if (input > 0)
+    {
+        resto = input % 2;
+        binario[j] = resto;
+        input /= 2;
+        j++;
+        return converteBinario(input);
+    }
+    return binario;
 }
 
-input = Imenu();
-
-for (int i = 0; i <= 7; i++)
+int retornaErro()
 {
-    binario[i] = converteBinario(input);
-    input = input / 2;
+    string stringValor = Imenu();
+    int num;
+    if (!int.TryParse(stringValor, out num))
+    {
+        Console.WriteLine("Informe um número válido");
+        return retornaErro();
+    }
+    else
+    {
+        if ((num > 255) || (num < -255))
+        {
+            Console.WriteLine("O valor extrapola o limite");
+            return retornaErro();
+        }
+
+    }
+    return num;
 }
 
-for (int i = 7; i >= 0; i--)
+valor = retornaErro();
+converteBinario(valor);
+
+for (int i = (binario.Length - 1); i >= 0; i--)
 {
     Console.Write(binario[i]);
 
